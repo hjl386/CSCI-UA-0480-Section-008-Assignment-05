@@ -8,6 +8,15 @@ body{
 	font-weight:bold;
 }
 
+#coTitle{
+	margin-left:12%;
+	font-size:150%;
+}
+
 #comment{
 	color:gray;
+}
+
+#shift{
+	margin-left:12%;
 }

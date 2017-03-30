@@ -1,8 +1,11 @@
 <a href='/'>Home</a>
-<br><br><br>
 
+<center>
 {{#each links as |link|}}
-	{{link.title}} <a href='{{link.url}}'>({{link.url}})</a>
+	<h1>{{link.title}}!!! <a href='{{link.url}}'>({{link.url}})</a></h1>
+</center>
+	<div id='coTitle'> <strong>Comments</strong> </div>
+<div id='shift'>
 	{{#each link.comments as |comment|}}
 		<br>
 		<div id='comment'> {{comment.user}} says: </div>
@@ -16,3 +19,6 @@
 	Names: <input type='text' name='name' value=''>
 	<input type='submit' value='Add Comment'>
 </form>
+
+<div id='comment'> (The last comment you made was <i>{{sess}}</i>) </comment>
+</div>

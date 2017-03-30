@@ -14,13 +14,17 @@ const app = express();
 const [PORT, HOST] = [3000, '127.0.0.1'];
 const bodyParser = require('body-parser');
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static('public'));
+
 require('./db');
 const mongoose = require('mongoose');
 const Comment = mongoose.model('Comment');
 const Link = mongoose.model('Link');
 
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(express.static('public'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 app.get('/css/base.css', (req, res) => {
@@ -32,11 +36,15 @@ app.get('/', (req, res) => {
 		if(err){
 			console.log(err);
 		}
-		res.render('link', (links: links));	
+		res.render('link', {links: links});	
 	});
 });
 
 app.post('/', (req, res) => {
+	const w = 'https://';
+	if (req.body.url.substring(0, 5).toLowerCase() !== 'https'){
+		req.body.url = w + req.body.url;
+	} 
 	const l = new Link({
 		url: req.body.url,
 		title: req.body.title,
@@ -48,6 +56,10 @@ app.post('/', (req, res) => {
 		}
 		res.redirect('/');
 	});
+});
+
+app.get('/:slug', (req, res) => {
+	
 });
 
 app.listen(PORT, HOST);

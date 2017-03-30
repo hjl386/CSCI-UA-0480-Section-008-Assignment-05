@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
-
-//Commentplugin(URLSlugs('Comment'));
+const URLSlugs = require('mongoose-url-slugs');
 
 const Comment = new mongoose.Schema({
 	text: String, 
 	user: String
 });
 
-mongoose.model("Comment", Comment);
-
-//Linkplugin(URLSlugs('Link'));
+mongoose.model('Comment', Comment);
+//Comment.plugin(URLSlugs('Comment'));
 
 const Link = new mongoose.Schema({
 	url: String,
@@ -17,6 +15,7 @@ const Link = new mongoose.Schema({
 	comments: [Comment]
 });
 
-mongoose.model("Link", Link);
+mongoose.model('Link', Link);
+Link.plugin(URLSlugs('Link'));
 
 mongoose.connect('mongodb://localhost/hw05');

@@ -1,0 +1,12 @@
+{{#each links}}
+	<a href='{{this.url}}'>{{this.title}}</a>,
+	<a href='{{this.slug}}'>[comments]</a>
+	{{this.slug}}
+<br><br>
+{{/each}}
+
+ <form method='POST' action=''>
+	URL: <input type='text' name='url' value=''>
+	Title: <input type='text' name ='title' value=''>
+	<input type='submit' value='Submit Link!'>
+</form>

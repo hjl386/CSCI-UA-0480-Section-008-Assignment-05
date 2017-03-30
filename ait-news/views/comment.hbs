@@ -1,0 +1,12 @@
+{{#each comments}}
+	{{this.text}}
+	<br>
+	{{this.user}}
+	<br><br>
+{{/each}}
+
+<form method='POST' action=''>
+	Comments: <input type='text' name='comment' value=''>
+	Names: <input type='text' name='name' value=''>
+	<input type='submit' value='Add Comment'>
+</form>

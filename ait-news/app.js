@@ -59,7 +59,25 @@ app.post('/', (req, res) => {
 });
 
 app.get('/:slug', (req, res) => {
-	
+	Comment.find({}, (err, comments) => {
+		if(err){
+			console.log(err);
+		}
+		res.render('comment', {comments: comments, 'title': req.params.slug});
+	});
+});
+
+app.post('/:slug', (req, res) => {
+	const c = new Comment({
+		text: req.body.comment,
+		user: req.body.name
+	});
+	c.save((err) => {
+		if(err){
+			console.log(err);
+		}
+		res.redirect('/:slug');
+	});
 });
 
 app.listen(PORT, HOST);

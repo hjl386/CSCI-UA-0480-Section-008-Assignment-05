@@ -6,7 +6,7 @@ const Comment = new mongoose.Schema({
 	user: String
 });
 
-mongoose.model('Comment', Comment);
+
 //Comment.plugin(URLSlugs('Comment'));
 
 const Link = new mongoose.Schema({
@@ -15,7 +15,10 @@ const Link = new mongoose.Schema({
 	comments: [Comment]
 });
 
+Link.plugin(URLSlugs('title'));
+
+mongoose.model('Comment', Comment);
 mongoose.model('Link', Link);
-Link.plugin(URLSlugs('Link'));
+
 
 mongoose.connect('mongodb://localhost/hw05');

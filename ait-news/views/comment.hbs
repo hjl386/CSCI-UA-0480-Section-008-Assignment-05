@@ -1,7 +1,14 @@
-{{#each comments}}
-	<div id='comment'>{{this.user}} says: </div>
-	{{this.text}}
+<a href='/'>Home</a>
+<br><br><br>
+
+{{#each links as |link|}}
+	{{link.title}} <a href='{{link.url}}'>({{link.url}})</a>
+	{{#each link.comments as |comment|}}
+		<br>
+		<div id='comment'> {{comment.user}} says: </div>
+		{{comment.text}}
 	<br><br>
+	{{/each}}
 {{/each}}
 
 <form method='POST' action=''>

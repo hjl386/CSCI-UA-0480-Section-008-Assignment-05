@@ -42,8 +42,12 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
 	const w = 'https://';
+	const c = '.com';
 	if (req.body.url.substring(0, 5).toLowerCase() !== 'https'){
 		req.body.url = w + req.body.url;
+	}
+	if (req.body.url.slice(-3) !== 'com'){
+		req.body.url += c;
 	} 
 	const l = new Link({
 		url: req.body.url,
@@ -58,18 +62,39 @@ app.post('/', (req, res) => {
 	});
 });
 
-/*
-app.get('/:var1', (req, res) => {
-	res.send(req.params.var1);
+app.get('/:slug', (req, res) => {
+	Link.find({slug: req.params.slug}, (err, links) => {
+		if(err){
+			console.log(err);
+		}
+		res.render('comment', {links: links});
+	});
 });
-*/
 
+app.post('/:slug', (req, res) => {
+/*	const c = new Comment({
+		text: req.body.comment,
+		user: req.body.name
+	});
+*/
+	Link.findOneAndUpdate({slug: req.params.slug}, {$push: {comments: {text: req.body.comment, user: req.body.name}}}, (err, links) => {
+		res.redirect(req.params.slug);		
+	});
+/*	c.save((err) => {
+		if(err){
+			console.log(err);
+		}
+		res.redirect(req.params.slug);
+	});
+*/
+});
+/*
 app.get('/:slug', (req, res) => {
 	Comment.find({}, (err, comments) => {
 		if(err){
 			console.log(err);
 		}
-		res.render('comment', {comments: comments, 'title': req.params.slug});
+		res.render('comment', {comments: comments});
 	});
 });
 
@@ -82,8 +107,8 @@ app.post('/:slug', (req, res) => {
 		if(err){
 			console.log(err);
 		}
-		res.redirect('/:slug');
+		res.redirect(req.params.slug);
 	});
 });
-
+*/
 app.listen(PORT, HOST);

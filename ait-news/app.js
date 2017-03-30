@@ -16,7 +16,6 @@ const bodyParser = require('body-parser');
 
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.static('public'));
 
 require('./db');
 const mongoose = require('mongoose');
@@ -72,43 +71,10 @@ app.get('/:slug', (req, res) => {
 });
 
 app.post('/:slug', (req, res) => {
-/*	const c = new Comment({
-		text: req.body.comment,
-		user: req.body.name
-	});
-*/
 	Link.findOneAndUpdate({slug: req.params.slug}, {$push: {comments: {text: req.body.comment, user: req.body.name}}}, (err, links) => {
 		res.redirect(req.params.slug);		
 	});
-/*	c.save((err) => {
-		if(err){
-			console.log(err);
-		}
-		res.redirect(req.params.slug);
-	});
-*/
-});
-/*
-app.get('/:slug', (req, res) => {
-	Comment.find({}, (err, comments) => {
-		if(err){
-			console.log(err);
-		}
-		res.render('comment', {comments: comments});
-	});
 });
 
-app.post('/:slug', (req, res) => {
-	const c = new Comment({
-		text: req.body.comment,
-		user: req.body.name
-	});
-	c.save((err) => {
-		if(err){
-			console.log(err);
-		}
-		res.redirect(req.params.slug);
-	});
-});
-*/
+
 app.listen(PORT, HOST);

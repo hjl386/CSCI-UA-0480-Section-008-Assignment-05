@@ -58,6 +58,12 @@ app.post('/', (req, res) => {
 	});
 });
 
+/*
+app.get('/:var1', (req, res) => {
+	res.send(req.params.var1);
+});
+*/
+
 app.get('/:slug', (req, res) => {
 	Comment.find({}, (err, comments) => {
 		if(err){

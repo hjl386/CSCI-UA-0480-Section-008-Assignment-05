@@ -1,0 +1,9 @@
+body{
+	background: linear-gradient(to right, #E55C00, #BF6E00);
+}
+
+#title{
+	font-variant:small-caps;
+	font-weight:bold;
+}
+
